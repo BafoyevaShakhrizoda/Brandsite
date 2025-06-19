@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Glamour Catalog{% endblock %}</title>
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    
+    <!-- Floating Background Elements -->
+    <div class="floating-elements">
+        <div class="floating" style="width: 100px; height: 100px; top: 20%; left: 10%;"></div>
+        <div class="floating" style="width: 150px; height: 150px; top: 60%; left: 80%;"></div>
+        <div class="floating" style="width: 70px; height: 70px; top: 80%; left: 20%;"></div>
+        <div class="floating" style="width: 120px; height: 120px; top: 30%; left: 70%;"></div>
+    </div>
+    
+    <!-- Header -->
+    <header class="animate__animated animate__fadeInDown">
+        <div class="container">
+            <div class="logo text-center animate__animated animate__pulse animate__infinite animate__slower">
+                GlamourCatalog
+            </div>
+        </div>
+    </header>
+    
+    
+    
+    <!-- Navigation -->
+    <nav class="animate__animated animate__fadeIn animate__delay-1s">
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}" class="animate__animated animate__fadeIn animate__delay-2s">Home</a></li>
+            <li><a href="{% url 'brands' %}" class="animate__animated animate__fadeIn animate__delay-2s">Brands</a></li>
+            <li><a href="{% url 'categories' %}" class="animate__animated animate__fadeIn animate__delay-2s">Categories</a></li>
+            <li><a href="{% url 'about' %}" class="animate__animated animate__fadeIn animate__delay-2s">About</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="container">
+        {% block content %}
+        <!-- Content will be injected here from child templates -->
+        {% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Discover the finest brands curated especially for the modern woman.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: girlzz@glamourcatalog.com</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 GlamourCatalog. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

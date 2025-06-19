@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}GlamourCatalog | Home{% endblock %}
+
+{% block content %}
+<section class="hero-section animate-on-scroll">
+  <div class="hero-content">
+    <h1 class="hero-title">Discover Your Glamour</h1>
+    <p class="hero-subtitle">Curated beauty essentials for the modern woman</p>
+    <a href="#" class="btn btn-hero">Shop Now</a>
+  </div>
+</section>
+
+<section class="new-arrivals animate-on-scroll">
+  <div class="section-header">
+    <h2 class="section-title">New Arrivals</h2>
+    <p class="section-subtitle">Fresh beauty finds just for you</p>
+  </div>
+
+  <div class="products-grid">
+    <!-- Product 1 -->
+    <div class="product-card animate-on-scroll">
+      <span class="new-badge">New</span>
+      <img src="https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?auto=format&fit=crop&w=600&q=60" alt="Rose Quartz Serum">
+      <h3>Rose Quartz Serum</h3>
+      <p class="price">$34.99</p>
+      <div class="product-actions">
+        <button class="btn-wishlist">♡</button>
+        <button class="btn-add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card animate-on-scroll">
+      <span class="new-badge">New</span>
+      <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=60" alt="24K Gold Mask">
+      <h3>24K Gold Mask</h3>
+      <p class="price">$29.99</p>
+      <div class="product-actions">
+        <button class="btn-wishlist">♡</button>
+        <button class="btn-add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card animate-on-scroll">
+      <span class="new-badge">New</span>
+      <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=60" alt="Crystal Lip Gloss">
+      <h3>Crystal Lip Gloss</h3>
+      <p class="price">$19.99</p>
+      <div class="product-actions">
+        <button class="btn-wishlist">♡</button>
+        <button class="btn-add-to-cart">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="categories-preview animate-on-scroll">
+  <h2 class="section-title">Shop by Category</h2>
+  <div class="categories-grid">
+    <a href="#" class="category-card" style="background-image: url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=60')">
+      <span>Skincare</span>
+    </a>
+    <a href="#" class="category-card" style="background-image: url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=600&q=60')">
+      <span>Makeup</span>
+    </a>
+    <a href="#" class="category-card" style="background-image: url('https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=60')">
+      <span>Fragrances</span>
+    </a>
+  </div>
+</section>
+{% endblock %}

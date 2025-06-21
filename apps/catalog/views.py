@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
+from apps.catalog.models import Category
+
 
 def categories(request):
     return render(request,'category_list.html', context={ 'title': 'Categories' })

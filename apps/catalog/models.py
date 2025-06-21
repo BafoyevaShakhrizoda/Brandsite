@@ -1,10 +1,23 @@
 from django.db import models
+from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug= models.SlugField(max_length=100, unique=True)
     description=models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='categories/', blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "Categories"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
     
 
 class Product(models.Model):
@@ -14,40 +27,40 @@ class Product(models.Model):
     price = models.DecimalField(max_length=10, decimal_places=2, max_digits=10)
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     category = models.ForeignKey(Category, related_name='products',on_delete=models.CASCADE)
+    quantity=models.PositiveIntegerField(default=0)
     is_featured = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def is_available(self):
+        return self.quantity > 0
 
 
 class CartItem(models.Model):
-    product = models.ForeignKey(Product, related_name='cart_items', on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    added_at = models.DateTimeField(auto_now_add=True)
 
-class Cart(models.Model):
-    items = models.ManyToManyField(CartItem, related_name='carts', blank=True)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f"{self.quantity} × {self.product.name}"
 
-    def update_total_price(self):
-        self.total_price = sum(item.product.price * item.quantity for item in self.items.all())
-        self.save()
+    def get_total_price(self):
+        return self.product.price * self.quantity
 
+
+# Order Model
 class Order(models.Model):
-    cart = models.ForeignKey(Cart, related_name='orders', on_delete=models.CASCADE)
-    order_date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, default='Pending')
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
+    items = models.ManyToManyField(CartItem)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_paid = models.BooleanField(default=False)
 
-    def save(self, *args, **kwargs):
-        self.total_price = self.cart.total_price
-        super().save(*args, **kwargs)
-
-class OrderItem(models.Model):  
-    order = models.ForeignKey(Order, related_name='order_items', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def save(self, *args, **kwargs):
-        self.price = self.product.price * self.quantity
-        super().save(*args, **kwargs)
+    def __str__(self):
+        return f"Order #{self.pk} by {self.user.username}"

@@ -10,54 +10,20 @@
   </div>
 
   <div class="brands-grid">
-    <!-- Brand 1 -->
+    {% for brand in brands_catalog%}
     <div class="brand-card animate-on-scroll">
       <div class="brand-logo">
-        <img src="https://images.unsplash.com/photo-1619451334790-c0e47e5f6b5f?auto=format&fit=crop&w=300&q=80" alt="Luxe Beauty">
+       <img src="{{ brand.image.url }}" class="card-img-top" alt="{{ brand.name }}" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">{{ brand.name }}</h5>
+            <p class="card-text">{{ brand.description|truncatechars:50 }}</p>
+            <p class="text-success">${{ brand.price }}</p>
+          <a href="#" class="btn-view-products">View Products</a>
       </div>
-      <div class="brand-info">
-        <h2>Luxe Beauty</h2>
-        <p>French luxury skincare with organic ingredients</p>
-        <a href="#" class="btn-view-products">View Products</a>
-      </div>
+      {%endfor%}
     </div>
 
-    <!-- Brand 2 -->
-    <div class="brand-card animate-on-scroll">
-      <div class="brand-logo">
-        <img src="https://images.unsplash.com/photo-1619451334790-c0e47e5f6b5f?auto=format&fit=crop&w=300&q=80" alt="Mineral Glow">
-      </div>
-      <div class="brand-info">
-        <h2>Mineral Glow</h2>
-        <p>Clean mineral makeup for all skin types</p>
-        <a href="#" class="btn-view-products">View Products</a>
-      </div>
-    </div>
-
-    <!-- Brand 3 -->
-    <div class="brand-card animate-on-scroll">
-      <div class="brand-logo">
-        <img src="https://images.unsplash.com/photo-1619451334790-c0e47e5f6b5f?auto=format&fit=crop&w=300&q=80" alt="Botanical Essence">
-      </div>
-      <div class="brand-info">
-        <h2>Botanical Essence</h2>
-        <p>Plant-powered haircare solutions</p>
-        <a href="#" class="btn-view-products">View Products</a>
-      </div>
-    </div>
-
-    <!-- Brand 4 -->
-    <div class="brand-card animate-on-scroll">
-      <div class="brand-logo">
-        <img src="https://images.unsplash.com/photo-1619451334790-c0e47e5f6b5f?auto=format&fit=crop&w=300&q=80" alt="Pure Scent">
-      </div>
-      <div class="brand-info">
-        <h2>Pure Scent</h2>
-        <p>Artisanal fragrances with natural oils</p>
-        <a href="#" class="btn-view-products">View Products</a>
-      </div>
-    </div>
-  </div>
+    
 
   <div class="brand-cta">
     <h2>Want to see your brand here?</h2>

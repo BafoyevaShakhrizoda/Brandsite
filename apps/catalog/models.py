@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -19,6 +20,26 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
+
+class Brand(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
+    logo = models.ImageField(upload_to='brands/logos/', blank=True, null=True)
+    description = models.TextField(blank=True)
+    website = models.URLField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('brand_detail', kwargs={'slug': self.slug})
+
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
@@ -54,7 +75,6 @@ class CartItem(models.Model):
         return self.product.price * self.quantity
 
 
-# Order Model
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
     items = models.ManyToManyField(CartItem)

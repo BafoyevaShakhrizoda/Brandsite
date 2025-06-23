@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import ListView
-from apps.catalog.models import Product
+from apps.catalog.models import Product, Brand
+from django.urls import reverse
+from django.utils.text import slugify
 
 class FeaturedProductsView(ListView):
     model = Product
@@ -13,5 +15,10 @@ class FeaturedProductsView(ListView):
 def about(request):
     return render(request,'about.html', context={ 'title': 'About' })
 
-def brands(request):
-    return render(request,'brands.html', context={ 'title': 'Brands' })
+class BrandsView(ListView):
+    model = Brand
+    template_name = 'brands.html'
+    context_object_name = 'brands_catalog'
+    
+    def get_queryset(self):
+        return Brand.objects.all()[:5]

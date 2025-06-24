@@ -1,8 +1,7 @@
 from django.urls import path
-from apps.catalog.views import categories, products, product
 
 urlpatterns = [
-    path('category_list/', categories, name='categories'),
-    path('products/', products, name='products'),
-    path('product/', product, name='product'),
+    path('categories/', views.category_list, name='category_list'),
+    path('categories/<slug:slug>/', views.category_detail, name='category_detail'),
+    path('categories/<slug:category_slug>/<slug:product_slug>/', views.product, name='product_detail'),
 ]

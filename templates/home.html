@@ -10,26 +10,26 @@
         <a href="#" class="btn btn-hero">Shop Now</a>
     </div>
     </section>
-    <div class="container">
-        <h1 class="my-4">Featured Products</h1>
-        <div class="row">
-            {% for products in featured_products %}
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description|truncatechars:50 }}</p>
-                        <p class="text-success">${{ product.price }}</p>
-                        <a href="{% url 'product_detail' product.slug %}" class="btn btn-primary">View Details</a>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-12">
-                <p>No featured products available.</p>
-            </div>
-            {% endfor %}
+    <section class="new-arrivals animate-on-scroll">
+        <div class="section-header">
+          <h2 class="section-title">Best Sellers</h2>
+          <p class="section-subtitle">Featured Products</p>
         </div>
-    </div>
+      
+        <div class="products-grid">
+          <!-- Product 1 -->
+           {% for product in featured_products %}
+          <div class="product-card animate-on-scroll">
+            <span class="new-badge">New</span>
+            <img src="{{product.image.url}}" alt="{{product.title}}">
+            <h3>{{product.name}}</h3>
+            <p class="price">${{product.price}}</p>
+            <div class="product-actions">
+              <button href="">See Details</button>
+            </div>
+          </div>
+          {% endfor %}
+      
+        </div>
+      </section>      
 {% endblock %}

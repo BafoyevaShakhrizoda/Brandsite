@@ -9,7 +9,7 @@
   <div class="categories-grid">
     {% for category in categories %}
     <div class="category-card animate-on-scroll">
-      <img src="{{ category.image.url }}" alt="{{ category.name }}">
+      <img src="{{ category.images.url }}" alt="{{ category.name }}">
       <h2>{{ category.name }}</h2>
       <p>{{ category.description }}</p>
       <a href="{% url 'category_detail' category.slug %}" class="btn">View Products</a>

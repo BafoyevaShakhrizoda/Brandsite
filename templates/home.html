@@ -15,7 +15,6 @@
           <h2 class="section-title">Best Sellers</h2>
           <p class="section-subtitle">Featured Products</p>
         </div>
-      
         <div class="products-grid">
           <!-- Product 1 -->
            {% for product in featured_products %}
@@ -25,7 +24,7 @@
             <h3>{{product.name}}</h3>
             <p class="price">${{product.price}}</p>
             <div class="product-actions">
-              <button href="">See Details</button>
+              <button href="{% url product_detail product.slug %}">See Details</button>
             </div>
           </div>
           {% endfor %}

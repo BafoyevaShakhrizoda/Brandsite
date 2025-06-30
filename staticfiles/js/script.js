@@ -317,3 +317,63 @@ function highlightSearchTerms(term) {
         card.innerHTML = highlighted;
     });
 }
+
+// Bitta asosiy DOMContentLoaded listener
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. Fullscreen category slider
+  const categoryCards = document.querySelectorAll('.category-card');
+  const navButtons = document.querySelectorAll('.categories-nav button');
+  
+  if (categoryCards.length > 0) {
+    // Show first card by default
+    categoryCards[0].classList.add('active');
+    if (navButtons.length > 0) navButtons[0].classList.add('active');
+    
+    // Navigation controls
+    navButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const targetIndex = this.getAttribute('data-target');
+        
+        // Hide all cards
+        categoryCards.forEach(card => card.classList.remove('active'));
+        navButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Show selected card
+        categoryCards[targetIndex].classList.add('active');
+        this.classList.add('active');
+      });
+    });
+  }
+
+  // 2. Hover effects for cards
+  const allCards = document.querySelectorAll('.category-card, .product-card');
+  allCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-10px)';
+      this.style.boxShadow = '0 15px 30px rgba(0,0,0,0.2)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = '';
+      this.style.boxShadow = '';
+    });
+  });
+
+  // 3. Button effects
+  const buttons = document.querySelectorAll('.btn, .btn-add-to-cart, .btn-wishlist');
+  buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const originalText = this.textContent;
+      const originalBg = this.style.background;
+      
+      this.textContent = 'Added!';
+      this.style.background = 'var(--gold)';
+      
+      setTimeout(() => {
+        this.textContent = originalText;
+        this.style.background = originalBg;
+      }, 1500);
+    });
+  });
+});

@@ -4,7 +4,7 @@ from apps.catalog.models import Category,Product
 
 def category_list(request):
     categories = Category.objects.all()
-    return render(request,'category_list.html', { 'categories': categories })
+    return render(request,'category_list.html', context= { 'categories': categories })
 
 def category_detail(request,slug):
     category = get_object_or_404(Category, slug=slug)

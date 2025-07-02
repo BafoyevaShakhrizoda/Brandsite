@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Your Cart - GlamourCatalog{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <h1 style="text-align: center; margin: 20px 0;">🛍️ Your Shopping Cart</h1>
+
+    {% if cart_items %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td class="product-name">{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.product.price }}</td>
+                    <td>${{ item.get_total_price }}</td>
+                    <td>
+                        <a href="{% url 'remove_from_cart' item.product.id %}" class="remove-btn">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <section>
+            <div class="container">
+              <div class="cart-summary">
+                <div class="cart-total">Total: ${{ cart_total }}</div>
+                <a href="{% url 'checkout' %}" class="checkout-btn">Proceed to Checkout</a>
+              </div>
+            </div>
+          </section>
+          
+    {% else %}
+    <p class="empty-message" style="font-size: 28px; font-weight: bold; text-align: center; color: #333;">
+        Your cart is empty 💔
+      </p>
+              <div style="text-align: center; margin: 20px 0;">
+            <a href="{% url 'home' %}"
+               style="
+                 display: inline-block;
+                 padding: 12px 30px;
+                 background: linear-gradient(to right, #ffb6c1, #ffeb3b);
+                 color: white;
+                 font-weight: bold;
+                 font-size: 14px;
+                 border: none;
+                 border-radius: 50px;
+                 text-decoration: none;
+                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                 transition: transform 0.2s ease, box-shadow 0.2s ease;
+               "
+               onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.15)'"
+               onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+               Continue Shopping        
+                </a>
+          </div>
+    {% endif %}
+</div>
+{% endblock %}

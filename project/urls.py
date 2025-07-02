@@ -15,4 +15,5 @@ urlpatterns = [
     path('categories/', views.category_list, name='category_list'),
     path('categories/<slug:slug>/', views.category_detail, name='category_detail'),
     path('categories/<slug:category_slug>/<slug:product_slug>/', views.product, name='product_detail'),
+    path('cart/',include('apps.catalog.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

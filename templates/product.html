@@ -18,7 +18,25 @@
       {{ product.description }}
     </div>
     
-    <button class="buy-button">Add to Cart</button>
-  </div>
+    <form action="{% url 'add_to_cart' product.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit"
+          style="
+              background: linear-gradient(to right, #f48fb1, #fbc02d);
+              color: white;
+              padding: 10px 24px;
+              border-radius: 30px;
+              border: none;
+              font-weight: bold;
+              cursor: pointer;
+              box-shadow: 0 4px 10px rgba(244, 143, 177, 0.4);
+              transition: transform 0.2s ease;
+          "
+          onmouseover="this.style.transform='scale(1.05)'"
+          onmouseout="this.style.transform='scale(1)'">
+          🛍️ Add to Cart
+      </button>
+  </form>
+    </div>
 </div>
 {% endblock %}

@@ -23,8 +23,28 @@
             <img src="{{product.image.url}}" alt="{{product.title}}">
             <h3>{{product.name}}</h3>
             <p class="price">${{product.price}}</p>
-            <div class="product-actions">
-              <button href="">See Details</button>
+            <div style="text-align: center; margin: 20px 0;">
+              <div style="text-align: center; margin: 20px 0;">
+                <a href="{% url 'product_detail' product.category.slug product.slug %}"
+                   style="
+                     display: inline-block;
+                     padding: 12px 30px;
+                     background: linear-gradient(to right, #ffb6c1, #ffeb3b);
+                     color: white;
+                     font-weight: bold;
+                     font-size: 14px;
+                     border: none;
+                     border-radius: 50px;
+                     text-decoration: none;
+                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                     transition: transform 0.2s ease, box-shadow 0.2s ease;
+                   "
+                   onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.15)'"
+                   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                   SEE DETAILS
+                </a>
+              </div>
+                                   
             </div>
           </div>
           {% endfor %}

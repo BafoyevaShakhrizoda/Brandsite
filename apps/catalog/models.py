@@ -113,11 +113,30 @@ class CartItem(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     items = models.ManyToManyField(CartItem)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    full_name = models.CharField(max_length=200,null=True, blank=True)  # 👈 New
+    address = models.TextField(null=True,blank=True)  # 👈 New
+    PAYMENT_CHOICES = [
+        ('credit_card', 'Credit Card'),
+        ('paypal', 'PayPal'),
+        ('cash_on_delivery', 'Cash on Delivery'),
+    ]
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES,null=True, blank=True)  # 👈 New
     created_at = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=False)
 
+    ORDER_STATUS_CHOICES = [
+    ('pending', 'Pending'),
+    ('shipped', 'Shipped'),
+    ('completed', 'Completed'),
+    ('cancelled', 'Cancelled'),
+    ]
+
+    order_status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='pending')
+
+
     def __str__(self):
-        return f"Order #{self.pk} by {self.user.username}"
+        return f"Order #{self.pk} by {self.user.username if self.user else 'Guest'}"
+    

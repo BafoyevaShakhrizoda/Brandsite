@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="checkout-container">
+  <h2 class="checkout-title">Checkout</h2>
+
+  <form method="post" class="checkout-form">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address</label>
+      <textarea name="address" id="address" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="payment_method">Payment Method</label>
+      <select name="payment_method" id="payment_method" required>
+        <option value="">-- Select --</option>
+        <option value="credit_card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="cash">Cash on Delivery</option>
+      </select>
+    </div>
+
+    <button type="submit" class="glamour-btn">Place Order</button>
+  </form>
+</div>
+{% endblock %}

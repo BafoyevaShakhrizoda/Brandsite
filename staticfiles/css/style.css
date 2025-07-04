@@ -1451,4 +1451,100 @@ header {
       margin-top: 40px; /* optional: adds space above */
       color: #333; /* optional: adjust text color */
     }
+    .checkout-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
     
+    .checkout-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 28px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .checkout-form .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .checkout-form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #444;
+    }
+    
+    .checkout-form input,
+    .checkout-form textarea,
+    .checkout-form select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: border 0.2s;
+    }
+    
+    .checkout-form input:focus,
+    .checkout-form textarea:focus,
+    .checkout-form select:focus {
+      border-color: #ff69b4;
+      outline: none;
+    }
+    .orders-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .order-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: 0.3s ease;
+    }
+    
+    .order-card:hover {
+      transform: scale(1.01);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+    }
+    
+    .order-id {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #222;
+    }
+    
+    .order-info {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    
+    .status-pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-shipped {
+      background-color: #d4edda;
+      color: #155724;
+    }
+   
+       

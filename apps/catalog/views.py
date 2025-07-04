@@ -54,11 +54,10 @@ def checkout(request):
 
     total = sum(item.get_total_price() for item in cart_items)
 
-    # Create order
     order = Order.objects.create(user=request.user, total_price=Decimal(total))
-    order.items.set(cart_items)  # Link all cart items to this order
+    order.items.set(cart_items)  
 
-    cart_items.delete()  # Clear the cart
+    cart_items.delete()  
 
     return redirect('order_confirmation', order_id=order.pk)
 

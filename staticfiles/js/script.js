@@ -377,3 +377,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+confetti({
+  particleCount: 150,
+  spread: 100,
+  colors: ['#ff69b4', '#ffd700', '#ffffff'], // pink, gold, white
+});

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="orders-container">
+  <h2>My Orders</h2>
+
+  {% for order in orders %}
+    <div class="order-card">
+      <div class="order-id">Order ID: {{ order.id }}</div>
+      <div class="order-info">
+        <strong>Status:</strong> 
+        <span class="status-badge {% if order.is_paid %}status-shipped{% else %}status-pending{% endif %}">
+          {% if order.is_paid %}Shipped{% else %}Pending{% endif %}
+        </span><br>
+        
+        <strong>Total:</strong> ${{ order.total_price }} <br>
+        <strong>Date:</strong> {{ order.created_at|date:"Y-m-d H:i" }}
+      </div>
+    </div>
+  {% empty %}
+    <p>You have no orders yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

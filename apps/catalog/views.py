@@ -1,4 +1,5 @@
 from django.shortcuts import render,get_object_or_404,redirect
+from django.urls import reverse
 from apps.catalog.models import Category,Product,CartItem,Order
 from decimal import Decimal
 
@@ -46,21 +47,45 @@ def remove_from_cart(request, product_id):
     return redirect('cart_view')
 
 
+
+
 def checkout(request):
     cart_items = CartItem.objects.filter(user=request.user)
 
     if not cart_items.exists():
-        return redirect('cart_view')
+        return redirect('cart_view') 
 
-    total = sum(item.get_total_price() for item in cart_items)
+    if request.method == 'POST':
+        full_name = request.POST.get('name')
+        address = request.POST.get('address')
+        payment_method = request.POST.get('payment_method')
 
-    order = Order.objects.create(user=request.user, total_price=Decimal(total))
-    order.items.set(cart_items)  
+        total = sum(item.get_total_price() for item in cart_items)
 
-    cart_items.delete()  
+        # Create order with new fields
+        order = Order.objects.create(
+            user=request.user,
+            total_price=Decimal(total),
+            full_name=full_name,
+            address=address,
+            payment_method=payment_method,
+            is_paid=True,
+            order_status='shipped'
+        )
+        order.items.set(cart_items)
+        cart_items.delete()  
 
-    return redirect('order_confirmation', order_id=order.pk)
+        return redirect('order_confirmation',order_id=order.id)
+
+    return render(request, 'checkout.html')
+
 
 def order_confirmation(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
     return render(request, 'order.html', {'order': order})
+
+
+def orders(request):
+    user_orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'orders.html', {'orders': user_orders})
+

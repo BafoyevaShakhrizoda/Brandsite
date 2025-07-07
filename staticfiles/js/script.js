@@ -1,4 +1,3 @@
-// Scroll indicator
 window.onscroll = function() {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -6,7 +5,6 @@ window.onscroll = function() {
     document.getElementById("scrollIndicator").style.width = scrolled + "%";
 };
 
-// Animate elements when they come into view
 document.addEventListener('DOMContentLoaded', function() {
     const animateElements = document.querySelectorAll('.animate-on-scroll');
     
@@ -23,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(element);
     });
     
-    // Add floating elements dynamically
     const floatingContainer = document.querySelector('.floating-elements');
     if (floatingContainer) {
         for (let i = 0; i < 6; i++) {
@@ -48,9 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-// Add this to your existing script.js or create a new one
 document.addEventListener('DOMContentLoaded', function() {
-  // Add hover effect to category cards
   const categoryCards = document.querySelectorAll('.category-card');
   
   categoryCards.forEach(card => {
@@ -65,19 +60,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Add click effect to category cards
   categoryCards.forEach(card => {
     card.addEventListener('click', function() {
-      // Add your navigation logic here
       console.log('Navigating to category:', this.querySelector('h2').textContent);
-      // Example: window.location.href = '/category/' + this.dataset.categoryId;
     });
   });
 });
 
-// Add this to your existing script.js or create a new one
 document.addEventListener('DOMContentLoaded', function() {
-  // Product card hover effects
   const productCards = document.querySelectorAll('.product-card');
   
   productCards.forEach(card => {
@@ -91,16 +81,13 @@ document.addEventListener('DOMContentLoaded', function() {
       this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.08)';
     });
 
-    // Add to cart functionality
     const button = this.querySelector('button');
     if (button) {
       button.addEventListener('click', function(e) {
         e.stopPropagation();
-        // Add your cart logic here
         const productName = card.querySelector('h2').textContent;
         const productPrice = card.querySelector('.price').textContent;
         
-        // Animation effect
         button.textContent = 'Added!';
         button.style.background = 'linear-gradient(45deg, var(--gold), var(--baby-pink))';
         
@@ -114,22 +101,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Product card click for details
   productCards.forEach(card => {
     card.addEventListener('click', function(e) {
       if (e.target.tagName !== 'BUTTON') {
-        // Add your product detail navigation here
         const productName = this.querySelector('h2').textContent;
         console.log('Viewing details for:', productName);
-        // Example: window.location.href = '/products/' + productName.toLowerCase().replace(/\s+/g, '-');
       }
     });
   });
 });
 
-// Add this to your existing script.js or create a new one
 document.addEventListener('DOMContentLoaded', function() {
-  // Product image zoom effect
   const productImage = document.querySelector('.product-image img');
   if (productImage) {
     productImage.addEventListener('mousemove', function(e) {
@@ -145,15 +127,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Buy Now button effect
   const buyButton = document.querySelector('.product-info button');
   if (buyButton) {
     buyButton.addEventListener('click', function() {
-      // Add your purchase logic here
       const productName = document.querySelector('.product-info h1').textContent;
       const productPrice = document.querySelector('.price').textContent;
       
-      // Animation effect
       this.textContent = 'Added to Cart!';
       this.style.background = 'linear-gradient(45deg, var(--gold), var(--baby-pink))';
       
@@ -166,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Back link hover effect
   const backLink = document.querySelector('.back-link a');
   if (backLink) {
     backLink.addEventListener('mouseenter', function() {
@@ -179,13 +157,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// New Arrivals Carousel Functionality
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize product carousel
   const productGrid = document.querySelector('.products-grid');
   
   if (productGrid) {
-    // Add swipe functionality for mobile
     let touchStartX = 0;
     let touchEndX = 0;
     
@@ -208,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Wishlist functionality
   const wishlistButtons = document.querySelectorAll('.btn-wishlist');
   
   wishlistButtons.forEach(button => {
@@ -216,13 +190,11 @@ document.addEventListener('DOMContentLoaded', function() {
       this.textContent = this.textContent === '♡' ? '♥' : '♡';
       this.style.color = this.textContent === '♥' ? 'red' : 'var(--baby-pink)';
       
-      // Add your wishlist logic here
       const productName = this.closest('.product-card').querySelector('h3').textContent;
       console.log(`${productName} ${this.textContent === '♥' ? 'added to' : 'removed from'} wishlist`);
     });
   });
 
-  // Add to cart functionality
   const addToCartButtons = document.querySelectorAll('.btn-add-to-cart');
   
   addToCartButtons.forEach(button => {
@@ -231,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const productName = productCard.querySelector('h3').textContent;
       const productPrice = productCard.querySelector('.price').textContent;
       
-      // Animation
       this.textContent = 'Added!';
       this.style.backgroundColor = 'var(--gold)';
       
@@ -244,9 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-// About Page Animations
 document.addEventListener('DOMContentLoaded', function() {
-  // Team member hover effects
   const teamMembers = document.querySelectorAll('.team-member');
   teamMembers.forEach(member => {
     member.addEventListener('mouseenter', function() {
@@ -260,19 +229,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Brand cards interaction
   const brandCards = document.querySelectorAll('.brand-card');
   brandCards.forEach(card => {
     card.addEventListener('click', function(e) {
       if (!e.target.classList.contains('btn-view-products')) {
         const brandName = this.querySelector('h2').textContent;
         console.log(`Viewing all products from ${brandName}`);
-        // window.location.href = `/brands/${brandName.toLowerCase().replace(/\s+/g, '-')}`;
       }
     });
   });
 
-  // View Products button effects
   const brandButtons = document.querySelectorAll('.btn-view-products');
   brandButtons.forEach(button => {
     button.addEventListener('mouseenter', function() {
@@ -284,7 +250,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-// Search functionality
 document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.querySelector('.search-form');
     
@@ -298,7 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Highlight search term if coming from search
     const urlParams = new URLSearchParams(window.location.search);
     const searchTerm = urlParams.get('q');
     if (searchTerm) {
@@ -318,34 +282,27 @@ function highlightSearchTerms(term) {
     });
 }
 
-// Bitta asosiy DOMContentLoaded listener
 document.addEventListener('DOMContentLoaded', function() {
-  // 1. Fullscreen category slider
   const categoryCards = document.querySelectorAll('.category-card');
   const navButtons = document.querySelectorAll('.categories-nav button');
   
   if (categoryCards.length > 0) {
-    // Show first card by default
     categoryCards[0].classList.add('active');
     if (navButtons.length > 0) navButtons[0].classList.add('active');
     
-    // Navigation controls
     navButtons.forEach(button => {
       button.addEventListener('click', function() {
         const targetIndex = this.getAttribute('data-target');
         
-        // Hide all cards
         categoryCards.forEach(card => card.classList.remove('active'));
         navButtons.forEach(btn => btn.classList.remove('active'));
         
-        // Show selected card
         categoryCards[targetIndex].classList.add('active');
         this.classList.add('active');
       });
     });
   }
 
-  // 2. Hover effects for cards
   const allCards = document.querySelectorAll('.category-card, .product-card');
   allCards.forEach(card => {
     card.addEventListener('mouseenter', function() {
@@ -359,7 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // 3. Button effects
   const buttons = document.querySelectorAll('.btn, .btn-add-to-cart, .btn-wishlist');
   buttons.forEach(button => {
     button.addEventListener('click', function(e) {
@@ -380,5 +336,10 @@ document.addEventListener('DOMContentLoaded', function() {
 confetti({
   particleCount: 150,
   spread: 100,
-  colors: ['#ff69b4', '#ffd700', '#ffffff'], // pink, gold, white
+  colors: ['#ff69b4', '#ffd700', '#ffffff'], 
+});
+
+
+document.querySelector('.add-to-cart-btn').addEventListener('click', function() {
+    alert('Product added to cart!');
 });

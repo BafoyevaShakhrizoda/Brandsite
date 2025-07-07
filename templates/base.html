@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +12,14 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
     <!-- Scroll Indicator -->
@@ -37,8 +42,6 @@
         </div>
     </header>
     
-    
-    
     <!-- Navigation -->
     <nav class="animate__animated animate__fadeIn animate__delay-1s">
         <ul class="nav-links">
@@ -48,10 +51,31 @@
             <li><a href="{% url 'about' %}" class="animate__animated animate__fadeIn animate__delay-2s">About</a></li>
             <li><a href="{% url 'cart_view' %}" class="animate__animated animate__fadeIn animate__delay-2s">Cart</a></li>
             <li><a href="{% url 'orders' %}" class="animate__animated animate__fadeIn animate__delay-2s">Orders</a></li>
-
+            
+            <!-- Authentication Links -->
+            {% if user.is_authenticated %}
+            <li class="animate__animated animate__fadeIn animate__delay-2s">
+                <a href="{% url 'logout' %}">Logout ({{ user.username }})</a>
+            </li>
+            {% else %}
+            <li><a href="{% url 'login' %}" class="animate__animated animate__fadeIn animate__delay-2s">Login</a></li>
+            <li><a href="{% url 'register' %}" class="animate__animated animate__fadeIn animate__delay-2s">Register</a></li>
+            {% endif %}
         </ul>
     </nav>
-     
+    
+    <!-- Messages -->
+    {% if messages %}
+    <div class="messages-container animate__animated animate__fadeIn">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} animate__animated animate__fadeInRight">
+            {{ message }}
+            <button class="close-btn">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
     <!-- Main Content -->
     <main class="container">
         {% block content %}
@@ -72,6 +96,12 @@
                 <ul>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms & Conditions</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
                 </ul>
             </div>
             
@@ -88,5 +118,7 @@
     
     <!-- JavaScript -->
     <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/auth.js' %}"></script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

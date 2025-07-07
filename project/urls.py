@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 from apps.common.views import FeaturedProductsView,BrandsView
 from apps.catalog import views
 from django.views.generic import RedirectView
+from django.contrib.auth import views as auth_views 
+
 
 urlpatterns = [
     path('', RedirectView.as_view(url='home/')),  
@@ -15,5 +17,8 @@ urlpatterns = [
     path('categories/', views.category_list, name='category_list'),
     path('categories/<slug:slug>/', views.category_detail, name='category_detail'),
     path('categories/<slug:category_slug>/<slug:product_slug>/', views.product, name='product_detail'),
-    path('cart/',include('apps.catalog.urls'))
+    path('cart/',include('apps.catalog.urls')),
+    path('auth/',include('apps.common.urls')),
+    path('auth/', include('django.contrib.auth.urls')),  
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

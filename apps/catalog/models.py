@@ -123,7 +123,10 @@ class Order(models.Model):
         ('paypal', 'PayPal'),
         ('cash_on_delivery', 'Cash on Delivery'),
     ]
-    payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES,null=True, blank=True)  # 👈 New
+    card_holder_name=models.CharField(max_length=100,blank=True,null=True)
+    card_number=models.CharField(max_length=20,blank=True,null=True)
+    card_expiration=models.CharField(max_length=20,blank=True,null=True)
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES,null=True, blank=True) 
     created_at = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=False)
 

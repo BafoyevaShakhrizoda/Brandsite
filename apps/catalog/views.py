@@ -62,7 +62,6 @@ def checkout(request):
 
         total = sum(item.get_total_price() for item in cart_items)
 
-        # Create order with new fields
         order = Order.objects.create(
             user=request.user,
             total_price=Decimal(total),
@@ -72,9 +71,20 @@ def checkout(request):
             is_paid=True,
             order_status='shipped'
         )
+        if payment_method == 'credit_card':
+            card_holder = request.POST.get('card_holder_name')
+            card_number = request.POST.get('card_number')
+            card_expiration = request.POST.get('card_expiry')
+
+            masked = "**** **** **** " + card_number[-4:]
+
+            order.card_holder_name = card_holder
+            order.masked_card_number = masked
+            order.card_expiration = card_expiration
+
         order.items.set(cart_items)
         cart_items.delete()  
-
+        
         return redirect('order_confirmation',order_id=order.id)
 
     return render(request, 'checkout.html')

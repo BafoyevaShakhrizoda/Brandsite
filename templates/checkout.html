@@ -14,19 +14,42 @@
     </div>
 
     <div class="form-group">
-      <label for="address">Address</label>
+      <label for="address">City</label>
       <textarea name="address" id="address" rows="3" required></textarea>
     </div>
 
     <div class="form-group">
-      <label for="payment_method">Payment Method</label>
-      <select name="payment_method" id="payment_method" required>
-        <option value="">-- Select --</option>
-        <option value="credit_card">Credit Card</option>
-        <option value="paypal">PayPal</option>
-        <option value="cash">Cash on Delivery</option>
-      </select>
+      <label for="name">Street&Home adress</label>
+      <input type="text" name="name" id="name" required>
     </div>
+
+
+
+
+    <select name="payment_method" id="payment_method" onchange="toggleCardFields()">
+      <option value="">-- Select --</option>
+      <option value="credit_card">Credit Card</option>
+      <option value="paypal">PayPal</option>
+      <option value="cash">Cash on Delivery</option>
+    </select>
+    
+    <div id="card-fields" style="display:none;">
+      <label>Card Holder Name</label>
+      <input type="text" name="card_holder_name">
+    
+      <label>Card Number</label>
+      <input type="text" name="card_number" maxlength="16">
+    
+      <label>Expiry Date (MM/YY)</label>
+      <input type="text" name="card_expiry">
+    </div>
+    
+    <script>
+    function toggleCardFields() {
+      const payment = document.getElementById("payment_method").value;
+      document.getElementById("card-fields").style.display = (payment === "credit_card") ? "block" : "none";
+    }
+    </script>    
 
     <button type="submit" class="glamour-btn">Place Order</button>
   </form>

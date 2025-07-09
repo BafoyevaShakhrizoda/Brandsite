@@ -1,7 +1,15 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.urls import reverse
-from apps.catalog.models import Category,Product,CartItem,Order
+from apps.catalog.models import Category,Product,CartItem,Order,Brand
 from decimal import Decimal
+
+def brand_list(request):
+    brands = Brand.objects.all()
+    return render(request, 'brand_list.html', {'brands': brands})
+
+def brand_detail(request, slug):
+    brand = get_object_or_404(Brand, slug=slug)
+    return render(request, 'brand_detail.html', {'brand': brand})
 
 
 def category_list(request):
@@ -9,6 +17,13 @@ def category_list(request):
     return render(request,'category_list.html', context= { 'categories': categories })
 
 def category_detail(request,slug):
+    search = request.GET.get('search', '')
+    if search:
+        products= Product.objects.filter(name__icontains=search)
+    else:
+        products= Product.objects.all()
+    
+    
     category = get_object_or_404(Category, slug=slug)
     products = Product.objects.filter(category= category)
     return render(request,'products.html', { 

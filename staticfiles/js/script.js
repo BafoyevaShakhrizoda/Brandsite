@@ -343,3 +343,232 @@ confetti({
 document.querySelector('.add-to-cart-btn').addEventListener('click', function() {
     alert('Product added to cart!');
 });
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Scroll progress indicator
+  const scrollIndicator = document.createElement('div');
+  scrollIndicator.id = 'scrollIndicator';
+  scrollIndicator.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(to right, #ffb6c1, #ffd700);
+    width: 0%;
+    z-index: 1000;
+    transition: width 0.1s ease;
+  `;
+  document.body.prepend(scrollIndicator);
+  
+  window.onscroll = function() {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    scrollIndicator.style.width = scrolled + "%";
+  };
+
+  // Create floating elements
+  const floatingContainer = document.createElement('div');
+  floatingContainer.className = 'floating-elements';
+  document.querySelector('.brands-section').appendChild(floatingContainer);
+  
+  for (let i = 0; i < 8; i++) {
+    const size = Math.random() * 100 + 50;
+    const top = Math.random() * 100;
+    const left = Math.random() * 100;
+    const duration = Math.random() * 20 + 10;
+    const delay = Math.random() * 5;
+    
+    const floatingElement = document.createElement('div');
+    floatingElement.className = 'floating';
+    floatingElement.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      top: ${top}%;
+      left: ${left}%;
+      animation-duration: ${duration}s;
+      animation-delay: ${delay}s;
+      opacity: ${Math.random() * 0.2 + 0.05};
+    `;
+    floatingContainer.appendChild(floatingElement);
+  }
+
+  // Brand card animations
+  const brandCards = document.querySelectorAll('.brand-card');
+  
+  brandCards.forEach((card, index) => {
+    // Initial styling for staggered animation
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = `all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${index * 0.1}s`;
+    
+    // Add hover effects
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-15px) rotateX(5deg)';
+      this.style.boxShadow = '0 20px 50px rgba(255, 182, 193, 0.3)';
+      
+      // Logo bounce effect
+      const logo = this.querySelector('.brand-logo');
+      if (logo) {
+        logo.style.transform = 'scale(1.1)';
+      }
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) rotateX(0)';
+      this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.05)';
+      
+      // Logo reset
+      const logo = this.querySelector('.brand-logo');
+      if (logo) {
+        logo.style.transform = 'scale(1)';
+      }
+    });
+    
+    // Click effect
+    card.addEventListener('click', function() {
+      this.style.transform = 'translateY(-5px) scale(0.98)';
+      setTimeout(() => {
+        this.style.transform = 'translateY(-15px) rotateX(5deg)';
+      }, 200);
+    });
+  });
+
+  // Button ripple effect
+  const buttons = document.querySelectorAll('.btn-view-products, .btn-contact');
+  
+  buttons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Ripple effect
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      ripple.style.cssText = `
+        position: absolute;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      `;
+      
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      
+      this.appendChild(ripple);
+      
+      // Remove ripple after animation
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+      
+      // For demo purposes - in real app this would navigate
+      console.log(`Navigating to ${this.textContent.trim()} page`);
+    });
+  });
+
+  // Add CSS for ripple animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        
+        // If it's a brand card, add a slight delay between each
+        if (entry.target.classList.contains('brand-card')) {
+          const index = Array.from(brandCards).indexOf(entry.target);
+          entry.target.style.transitionDelay = `${index * 0.1}s`;
+        }
+        
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  // Observe all animateable elements
+  document.querySelectorAll('.brand-card, .section-header, .brand-cta').forEach(el => {
+    observer.observe(el);
+  });
+  
+  // Confetti effect for special actions
+  window.celebrate = function() {
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#ffb6c1', '#ffd700', '#ffffff']
+    });
+  };
+});
+
+// Optional: If you want to add a "Back to Top" button
+function initBackToTop() {
+  const backToTop = document.createElement('button');
+  backToTop.id = 'backToTop';
+  backToTop.innerHTML = '↑';
+  backToTop.style.cssText = `
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(to right, #ffb6c1, #ffd700);
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
+    z-index: 999;
+  `;
+  document.body.appendChild(backToTop);
+  
+  window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 300) {
+      backToTop.style.opacity = '1';
+      backToTop.style.visibility = 'visible';
+    } else {
+      backToTop.style.opacity = '0';
+      backToTop.style.visibility = 'hidden';
+    }
+  });
+  
+  backToTop.addEventListener('click', function() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initBackToTop);

@@ -10,20 +10,22 @@
   </div>
 
   <div class="brands-grid">
-    {% for brand in brands_catalog %}
+    {% for brand in brands %}
     <div class="brand-card animate-on-scroll">
-      <div class="brand-logo">
-       <img src="{{ brand.image.url }}" class="card-img-top" alt="{{ brand.name }}" style="height: 200px; object-fit: cover;">
-          <div class="card-body">
-            <h5 class="card-title">{{ brand.name }}</h5>
-            <p class="card-text">{{ brand.description|truncatechars:50 }}</p>
-            <p class="text-success">${{ brand.price }}</p>
-          <a href="#" class="btn-view-products">View Products</a>
-      </div>
-      {%endfor%}
+      <a href="{% url 'brand_detail' brand.slug %}">
+        <div class="brand-logo">
+          <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="card-img-top">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ brand.name }}</h5>
+          <p class="card-text">{{ brand.description|truncatechars:50 }}</p>
+          <p class="text-success">Est. {{ brand.founding_year }}</p>
+          <a href="{% url 'brand_detail' brand.slug %}" class="btn-view-products">Discover Brand</a>
+        </div>
+      </a>
     </div>
-
-    
+    {% endfor %}
+  </div>
 
   <div class="brand-cta">
     <h2>Want to see your brand here?</h2>

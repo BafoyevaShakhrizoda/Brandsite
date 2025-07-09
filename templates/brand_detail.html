@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}GlamourCatalog | {{ brand.name }}{% endblock %}
+
+{% block content %}
+<section class="brand-detail-section">
+  <div class="brand-header" style="background-image: url('{{ brand.cover_image.url }}');">
+    <div class="brand-header-content">
+      <img src="{{ brand.logo.url }}" alt="{{ brand.name }} Logo" class="brand-logo-large">
+      <h1>{{ brand.name }}</h1>
+      <p class="founding-year">Est. {{ brand.founding_year }}</p>
+    </div>
+  </div>
+
+  <div class="brand-content-container">
+    <div class="brand-about">
+      <h2>About {{ brand.name }}</h2>
+      <p>{{ brand.description }}</p>
+      <h3>Our History</h3>
+      <p>{{ brand.history }}</p>
+    </div>
+
+    <div class="brand-owner">
+      <div class="owner-image">
+        <img src="{{ brand.owner_image.url }}" alt="{{ brand.owner_name }}">
+      </div>
+      <div class="owner-info">
+        <h2>Meet {{ brand.owner_name }}</h2>
+        <p>{{ brand.owner_bio }}</p>
+      </div>
+    </div>
+
+    <div class="brand-products">
+      <h2>Featured Products</h2>
+      <div class="products-grid">
+        {% for product in brand.products.all %}
+        <div class="product-card">
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          <h3>{{ product.name }}</h3>
+          <p>${{ product.price }}</p>
+          <a href="{% url 'product_detail' product.slug %}" class="btn-view">View Product</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="brand-cta">
+      <a href="{{ brand.website }}" target="_blank" class="btn-visit-website">Visit Official Website</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

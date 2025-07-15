@@ -17,6 +17,9 @@
           <div class="text-content">
             <h1 class="category-name">{{ category.name }}</h1>
           </div>
+          <div>
+              <p>{{ category.description }}</p>
+          </div>
           <a href="{% url 'category_detail' category.slug %}" class="view-products-btn">
             <span class="btn-text">view products</span>
           </a>

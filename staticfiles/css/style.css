@@ -882,63 +882,214 @@ footer::before {
 }
 
 /* ===== CATEGORIES PREVIEW ===== */
-.categories-preview {
-  padding: 4rem 0;
-  text-align: center;
+/* Base Styles */
+.categories-section {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #f0cce6 0%, #f9c2d9 100%);
 }
 
+.container {
+  width: 90%;
+  max-width: 2400px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 3.5rem;
+  margin-bottom: 5rem;
+  color: #333;
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 150px;
+  height: 5px;
+  background: linear-gradient(90deg, #ff6b6b, #ffb347, #ff6b6b);
+  background-size: 200% 100%;
+  margin: 2rem auto;
+  border-radius: 3px;
+  animation: gradientShift 3s ease infinite;
+}
+
+/* Category Grid */
 .categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
 }
 
 .category-card {
-  height: 200px;
-  border-radius: 15px;
-  overflow: hidden;
+  flex: 1 1 450px;
+  max-width: 700px;
+  height: 850px;
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-size: cover;
-  background-position: center;
-  transition: var(--transition-magic);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(229, 76, 127, 0.15);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.category-card::before {
+.category-card:hover {
+  transform: translateY(-20px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+/* Background Image */
+.category-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform 1.2s ease;
+  z-index: 1;
+}
+
+.category-card:hover .category-bg-image {
+  transform: scale(1.05);
+}
+
+.category-bg-image::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.3);
-  transition: var(--transition-fast);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
 }
 
-.category-card:hover::before {
-  background: rgba(0,0,0,0.1);
-}
-
-.category-card span {
-  position: relative;
+/* Content */
+.category-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3rem;
   z-index: 2;
   color: white;
-  font-size: 2rem;
-  font-weight: 500;
+}
+
+.text-content {
+  margin-bottom: 2.5rem;
+}
+
+.category-name {
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 5px rgba(245, 210, 224, 0.5);
+  color: #fff;
+  line-height: 1.2;
+}
+
+.category-description {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+  color: rgba(255,255,255,0.9);
   text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-  transition: var(--transition-fast);
+  max-width: 90%;
 }
 
-.category-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+/* Animated Button */
+.view-products-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 3rem;
+  background: linear-gradient(90deg, #ff6b6b, #ffb347, #ff6b6b);
+  background-size: 200% 100%;
+  color: rgb(196, 73, 178);
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s ease;
+  animation: gradientShift 3s ease infinite;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  width: fit-content;
+  margin-top: 1.5rem;
 }
 
-.category-card:hover span {
-  transform: scale(1.1);
+.view-products-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+.btn-text {
+  margin-right: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.btn-icon {
+  position: relative;
+  z-index: 2;
+  font-size: 1.5rem;
+  transition: transform 0.4s ease;
+}
+
+.view-products-btn:hover .btn-icon {
+  transform: translateX(10px);
+}
+
+/* Animations */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .category-card {
+    height: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .category-card {
+    height: 500px;
+    flex: 1 1 350px;
+  }
+  
+  .category-content {
+    padding: 2rem;
+  }
+  
+  .category-name {
+    font-size: 2.2rem;
+  }
+  
+  .category-description {
+    font-size: 1.1rem;
+  }
+  
+  .view-products-btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
 }
 /* ===== ABOUT PAGE STYLES ===== */
 .about-section {
@@ -1700,78 +1851,45 @@ header {
   z-index: 1;
 }
 
+/* 1. Kattalashtirilgan brand card */
 .brand-card {
   background: white;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.07);
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   transform-style: preserve-3d;
+  min-height: 420px; /* Kattaroq kartalar uchun */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
 }
 
-.brand-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255, 182, 193, 0.1), rgba(255, 215, 0, 0.1));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.brand-card:hover {
-  transform: translateY(-15px) rotateX(5deg);
-  box-shadow: 0 20px 50px rgba(255, 182, 193, 0.3);
-}
-
-.brand-card:hover::before {
-  opacity: 1;
-}
-
+/* 2. Brand logoni konteyneri */
 .brand-logo-container {
   height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(145deg, #fff9fa, #fff);
-  position: relative;
-  overflow: hidden;
+  background: #fff9fa;
+  padding: 20px;
 }
 
-.brand-logo-container::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background: linear-gradient(to right, #ffb6c1, #ffd700);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.5s ease;
-}
-
-.brand-card:hover .brand-logo-container::after {
-  transform: scaleX(1);
-}
-
+/* 3. Brand logosi doira shaklida */
 .brand-logo {
-  max-width: 180px;
-  max-height: 120px;
-  object-fit: contain;
-  transition: transform 0.5s ease;
-  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffd700; /* Gold border */
+  background-color: white;
 }
 
-.brand-card:hover .brand-logo {
-  transform: scale(1.1);
-}
-
-.brand-info {
-  padding: 2rem;
+/* 4. Brand kontentlari */
+.brand-content {
+  padding: 20px;
   text-align: center;
   position: relative;
 }
@@ -1801,12 +1919,12 @@ header {
 }
 
 .brand-description {
+  font-size: 16px;
   color: #666;
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

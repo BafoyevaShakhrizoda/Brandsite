@@ -1,20 +1,29 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}GlamourCatalog | Categories{% endblock %}
 
 {% block content %}
-<div class="category-section animate-on-scroll">
-  <h1 class="section-title">Explore Our Categories</h1>
-
-  <div class="categories-grid">
-    {% for category in categories %}
-    <div class="category-card animate-on-scroll">
-      <img src="{{ category.images.url }}" alt="{{ category.name }}">
-      <h2>{{ category.name }}</h2>
-      <p>{{ category.description }}</p>
-      <a href="{% url 'category_detail' category.slug %}" class="btn">View Products</a>
+<div class="categories-section">
+  <div class="container">
+    <h1 class="section-title">EXPLORE OUR LUXURY COLLECTIONS</h1>
+    
+    <div class="categories-grid">
+      {% for category in categories %}
+      <div class="category-card">
+        <div class="category-bg-image" style="background-image: url('{{ category.images.url }}')"></div>
+        
+        <div class="category-content">
+          <div class="text-content">
+            <h1 class="category-name">{{ category.name }}</h1>
+          </div>
+          <a href="{% url 'category_detail' category.slug %}" class="view-products-btn">
+            <span class="btn-text">view products</span>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
 {% endblock %}

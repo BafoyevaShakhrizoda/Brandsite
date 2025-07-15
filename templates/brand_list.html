@@ -13,12 +13,13 @@
     {% for brand in brands %}
     <div class="brand-card animate-on-scroll">
       <a href="{% url 'brand_detail' brand.slug %}">
-        <div class="brand-logo">
-          <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="card-img-top">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{ brand.name }}</h5>
-          <p class="card-text">{{ brand.description|truncatechars:50 }}</p>
+       <div class="brand-card">
+          <div class="brand-logo-container">
+            <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="brand-logo">
+          </div>
+          <div class="brand-content">
+            <h3 class="brand-title">{{ brand.name }}</h3>
+            <p class="brand-description">{{ brand.description }}</p>
           <p class="text-success">Est. {{ brand.founding_year }}</p>
           <a href="{% url 'brand_detail' brand.slug %}" class="btn-view-products">Discover Brand</a>
         </div>
@@ -26,11 +27,15 @@
     </div>
     {% endfor %}
   </div>
-
-  <div class="brand-cta">
+</section>
+<section class="brand-cta-section">
+  <div class="container">
+    <h1 class="cta-title">Join Our Exclusive Brand Network</h1>
+    <div class="brand-cta">
     <h2>Want to see your brand here?</h2>
-    <p>We're always looking for innovative beauty brands to partner with</p>
-    <a href="#" class="btn-contact">Contact Us</a>
+      <p>We're always looking for innovative famous brands to partner with</p>
+      <a href="#" class="btn-contact">Contact Us</a>
+    </div>
   </div>
 </section>
 {% endblock %}

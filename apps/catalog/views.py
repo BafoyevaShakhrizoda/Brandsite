@@ -114,3 +114,8 @@ def orders(request):
     user_orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'orders.html', {'orders': user_orders})
 
+
+
+
+    
+        

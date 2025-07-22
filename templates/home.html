@@ -27,7 +27,19 @@
             <h3>{{ product.name }}</h3>
             <p class="price">${{ product.price }}</p>
             <div class="product-button-container">
-                <a href="{% url 'product_detail' product.category.slug product.slug %}" class="product-detail-button">
+                <a href="{% url 'product_detail' product.category.slug product.slug %}" class="product-detail-button"
+                style="background: linear-gradient(to right, #f48fb1, #fbc02d);
+                color: white;
+                padding: 10px 24px;
+                border-radius: 30px;
+                border: none;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 4px 10px rgba(244, 143, 177, 0.4);
+                transition: transform 0.2s ease;
+            "
+            onmouseover="this.style.transform='scale(1.05)'"
+            onmouseout="this.style.transform='scale(1)'">
                    SEE DETAILS
                 </a>
             </div>
